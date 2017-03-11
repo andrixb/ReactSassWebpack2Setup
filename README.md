@@ -14,8 +14,6 @@ At the moment `watchContentBase` is set to `true` as a fallback
 Needs to investigate into this
 https://webpack.js.org/guides/hmr-react/
 
-TODO
-- create a new repository for React FEsetup that uses HMR
 
 ## Usage
 - `yarn` to install dependencies
