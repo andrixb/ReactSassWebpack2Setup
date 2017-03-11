@@ -1,6 +1,6 @@
 # Intention
 
-This repository has been created in order to have a minimal FE setup for any application architecture based on web components.
+This repository has been created in order to have a minimal FE setup for applications architecture React/Redux based.
 
 It uses Sass (with .scss/.sass). The style is loaded at the component level.
 
