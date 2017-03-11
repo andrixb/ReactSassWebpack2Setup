@@ -2,9 +2,9 @@ const path = require('path');
 const Webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const HotModuleReplacementPlugin = new Webpack.HotModuleReplacementPlugin();
 const NamedModulesPlugin = new Webpack.NamedModulesPlugin();
 const NoEmitOnErrorsPlugin = new Webpack.NoEmitOnErrorsPlugin();
+const HotModuleReplacementPlugin = new Webpack.HotModuleReplacementPlugin();
 
 const extractCSS = new ExtractTextPlugin('[name].main.css');
 const extractSCSS = new ExtractTextPlugin('[name].styles.css');
@@ -12,6 +12,8 @@ const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 
 const config = {
     entry: [
+        'react-hot-loader/patch',
+        // activate HMR for React
         'webpack-dev-server/client?http://localhost:8080',
         // // bundle the client for webpack-dev-server
         // // and connect to the provided endpoint
@@ -19,7 +21,7 @@ const config = {
         'webpack/hot/only-dev-server',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
-        './src/index.js',
+        './src/index.jsx',
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),

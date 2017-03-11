@@ -18,7 +18,7 @@ const extractSCSS = new ExtractTextPlugin('styles.css');
 
 const config = {
     entry: [
-        './src/index.js',
+        './src/index.jsx',
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
