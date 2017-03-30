@@ -13,13 +13,6 @@ const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(store)} >
-      <App />
+      <App hello="Hello!" />
   </Provider>, document.querySelector('.container'),
 );
-
-// Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept(App, () => {
-    render(App)
-  });
-}
