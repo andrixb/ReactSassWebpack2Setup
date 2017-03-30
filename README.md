@@ -8,12 +8,6 @@ Dependencies can be handled by **Yarn**.
 
 See the example in the `src` folder for a basic usage of this starter kit.
 
-**HMR doesn't work properly**
-At the moment `watchContentBase` is set to `true` as a fallback
-
-Needs to investigate into this
-https://webpack.js.org/guides/hmr-react/
-
 
 ## Usage
 - `yarn` to install dependencies
