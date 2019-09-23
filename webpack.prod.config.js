@@ -1,66 +1,16 @@
 const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.config.js');
 
-// const CommonsChunkPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-const UglifyJsPlugin = new webpack.optimize.UglifyJsPlugin();
-const AggressiveMergingPlugin = new webpack.optimize.AggressiveMergingPlugin();
+const RELEASE_PATH = path.join(__dirname, 'release');
+const CDN_URL = (process.env.CDN_URL) ? process.env.CDN_URL : '';
+const ASSETS_VERSION = (process.env.ASSETS_VERSION) ? `${process.env.ASSETS_VERSION}` : '';
 
-const DefinePlugin = new webpack.DefinePlugin({
-    'process.env': {
-        // This has effect on the react lib size
-        NODE_ENV: JSON.stringify('production'),
+module.exports = merge(common, {
+    mode: 'production',
+    output: {
+        publicPath: `${process.env.CDN_URL}/${process.env.ASSETS_VERSION}/`,
+        filename: '[name].js',
+        path: RELEASE_PATH,
     },
 });
-
-const extractCSS = new ExtractTextPlugin('[name].main.css');
-const extractSCSS = new ExtractTextPlugin('[name].styles.css');
-
-const config = {
-    entry: [
-        './src/index.jsx',
-    ],
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        publicPath: 'http://localhost:8080/',
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: [
-                    path.resolve(__dirname, 'node_modules'),
-                ],
-                loader: 'babel-loader',
-                options: {
-                    presets: ['react', 'es2015', 'stage-2'],
-                },
-            },
-            {
-                test: /\.s(a|c)ss$/,
-                loader: extractSCSS.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'postcss-loader', 'sass-loader'],
-                }),
-            },
-            {
-                test: /\.css$/,
-                loader: extractCSS.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'postcss-loader'],
-                }),
-            },
-        ],
-    },
-    plugins: [
-        extractCSS,
-        extractSCSS,
-        // CommonsChunkPlugin,
-        UglifyJsPlugin,
-        AggressiveMergingPlugin,
-        DefinePlugin,
-    ],
-};
-
-module.exports = config;
